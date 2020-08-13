@@ -4,12 +4,18 @@ const Boleto = require('@mrmgomes/boleto-utils');
 
 module.exports = {
     async pay(req, res) {
-        console.log("Pagamento");
+        return res.send("Pagamento");
     },
     async gerarBoleto(req, res) {
         //https://www.npmjs.com/package/@mrmgomes/boleto-utils
        var result = Boleto.geraCodBarras('23790448095616862379336011058009740430000124020');
         console.log("Resposta");
         return res.json(result);
+    },
+    async deposito(req, res) {
+        return res.send("Deposito");
+    },
+    async cancelamento(req, res) {
+        return res.send("Cancelamento");
     }
 };

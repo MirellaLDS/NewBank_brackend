@@ -6,62 +6,207 @@
 	},
 	"item": [
 		{
-			"name": "Create user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"name\": \"Teste 1\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"name\": \"Teste 1\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3333/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3333",
-					"path": [
-						"users"
-					]
+				{
+					"name": "Find by User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cpf",
+								"value": "08215596975",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "123456",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Find by User",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "cpf",
-						"value": "08215596975",
-						"type": "text"
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Cancelamento de conta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "account",
+								"value": "01234",
+								"type": "text",
+								"description": "Id do usuário"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"transaction"
+							]
+						},
+						"description": "Usuário solicita o cancelamento da conta.\r\n\r\n[0] -> Cancelado | \r\n[1] -> Ativo | \r\n[2] -> Bloqueado"
 					},
-					{
-						"key": "pws",
-						"value": "123456",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3333/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3333",
-					"path": [
-						"users"
-					]
+					"response": []
+				},
+				{
+					"name": "Pagamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "account",
+								"value": "01234",
+								"description": "Numero da conta",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"transaction"
+							]
+						},
+						"description": "Pagamento de boletos, você envia o código do boleto e o Pagamento é efetuado."
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Add Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bank_branch\":\"001\",\r\n    \"code\":\"01234\",\r\n    \"cpf\":\"08215574677\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"account"
+							]
+						},
+						"description": "Adicionar uma conta corrent\r\n[0] -> Cancelado | [1] -> Ativo | [2] -> Bloqueado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cpf",
+								"value": "08215574677",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/account",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"account"
+							]
+						},
+						"description": "Retorna a conta do usuário"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

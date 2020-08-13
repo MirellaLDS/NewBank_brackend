@@ -2,7 +2,7 @@ const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-const BoletoController = require("../controllers/TransactionsController");
+const TransactionController = require("../controllers/TransactionsController");
 const UserController = require("../controllers/UserController");
 
 const routes = express.Router();
@@ -53,8 +53,12 @@ routes.get('/', (req, res) => {
 
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.index);
-routes.get('/pagamento', BoletoController.pay);
-routes.get('/boleto', BoletoController.gerarBoleto);
+
+// Transactions
+routes.post('/pagamento', TransactionController.pay);
+routes.get('/boleto', TransactionController.gerarBoleto);
+routes.post('/deposito', TransactionController.deposito);
+routes.post('/cancelamento', TransactionController.cancelamento);
 
 // catch 404 and forward to error handler
 routes.use(function(req, res, next) {
