@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "a8884d01-b782-48ea-a696-a17a5e412fcd",
+		"name": "NewBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"name\": \"Teste 1\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find by User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cpf",
+						"value": "08215596975",
+						"type": "text"
+					},
+					{
+						"key": "pws",
+						"value": "123456",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
