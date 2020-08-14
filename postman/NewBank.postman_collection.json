@@ -1,7 +1,8 @@
 {
 	"info": {
-		"_postman_id": "a8884d01-b782-48ea-a696-a17a5e412fcd",
+		"_postman_id": "07f52cda-673b-4a3b-b303-6ce17146913b",
 		"name": "NewBank",
+		"description": "O servidor em questão fornecerá informações sobre uma conta bancária vinculada ao usuário proprietário do dispositivo.\n\n    [!IMPORTANT] Você precisa ter instalado nodejs caso querita rodar local\n\nRodar projeto\n\n    Local: yarn dev\n    Produção: yarn start\n\nRepositório no Git https://github.com/MirellaLDS/NewBank_brackend\n\nServer endpoint: https://newbank-backend.herokuapp.com/",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -10,12 +11,26 @@
 			"item": [
 				{
 					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86747c7c-a364-4a8b-8926-c04bbd52eb47",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"cpf\", jsonData.cpf);\r",
+									"postman.setEnvironmentVariable(\"_id\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"name\": \"Teste 1\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"cpf\":\"08215123456\",\r\n    \"name\": \"Teste 5\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,18 +38,79 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3333/users",
-							"protocol": "http",
+							"raw": "{{localEndpoit}}/users",
 							"host": [
-								"localhost"
+								"{{localEndpoit}}"
 							],
-							"port": "3333",
 							"path": [
 								"users"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpf\":\"08215123456\",\r\n    \"name\": \"Teste 5\",\r\n    \"avatar\": \"\",\r\n    \"telefone\": \"989253766\",\r\n    \"pws\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cf-gFinXfEqzgSPJ6PSVotpM2iqZAI\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 13:50:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5f36969c3b64e126c47ad7ba\",\n    \"name\": \"Teste 5\",\n    \"cpf\": \"08215123456\",\n    \"pws\": \"123456\",\n    \"telefone\": \"989253766\",\n    \"avatar\": \"\",\n    \"createdAt\": \"2020-08-14T13:50:20.737Z\",\n    \"updatedAt\": \"2020-08-14T13:50:20.737Z\",\n    \"__v\": 0\n}"
+						}
+					]
 				},
 				{
 					"name": "Find by User",
@@ -43,28 +119,95 @@
 						"header": [
 							{
 								"key": "cpf",
-								"value": "08215596975",
-								"type": "text"
+								"value": "{{cpf}}",
+								"type": "text",
+								"description": "Documento CPF"
 							},
 							{
 								"key": "pws",
-								"value": "123456",
-								"type": "text"
+								"value": "{{pws}}",
+								"type": "text",
+								"description": "Senha do usuário"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3333/users",
-							"protocol": "http",
+							"raw": "{{serverEndpoint}}/users",
 							"host": [
-								"localhost"
+								"{{serverEndpoint}}"
 							],
-							"port": "3333",
 							"path": [
 								"users"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Find by User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "cpf",
+										"value": "08215596975",
+										"description": "Documento CPF",
+										"type": "text"
+									},
+									{
+										"key": "pws",
+										"value": "123456",
+										"description": "Senha do usuário",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3333/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cf-jUuy58mwgFH4ygJziz/vmqYEg/s\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 13:58:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5f3578b328fa6f52c03664b7\",\n    \"name\": \"Teste 1\",\n    \"cpf\": \"08215596975\",\n    \"pws\": \"123456\",\n    \"telefone\": \"989253766\",\n    \"avatar\": \"\",\n    \"createdAt\": \"2020-08-13T17:30:27.636Z\",\n    \"updatedAt\": \"2020-08-13T17:30:27.636Z\",\n    \"__v\": 0\n}"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -72,42 +215,6 @@
 		{
 			"name": "Transactions",
 			"item": [
-				{
-					"name": "Cancelamento de conta",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "account",
-								"value": "01234",
-								"type": "text",
-								"description": "Id do usuário"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"type\":\"1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3333/transaction",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3333",
-							"path": [
-								"transaction"
-							]
-						},
-						"description": "Usuário solicita o cancelamento da conta.\r\n\r\n[0] -> Cancelado | \r\n[1] -> Ativo | \r\n[2] -> Bloqueado"
-					},
-					"response": []
-				},
 				{
 					"name": "Pagamento",
 					"request": {
@@ -130,19 +237,192 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3333/transaction",
-							"protocol": "http",
+							"raw": "{{serverEndpoint}}/transaction/pagamento",
 							"host": [
-								"localhost"
+								"{{serverEndpoint}}"
 							],
-							"port": "3333",
 							"path": [
-								"transaction"
+								"transaction",
+								"pagamento"
 							]
 						},
 						"description": "Pagamento de boletos, você envia o código do boleto e o Pagamento é efetuado."
 					},
+					"response": [
+						{
+							"name": "Pagamento",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "account",
+										"value": "01234",
+										"description": "Numero da conta",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/transaction/pagamento",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"transaction",
+										"pagamento"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": "Pagamento efetuado com sucesso"
+						}
+					]
+				},
+				{
+					"name": "Transferencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cpf",
+								"value": "{{cpf}}",
+								"type": "text",
+								"description": "Id do usuário"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"origem\": \"01234\",\r\n    \"destino\": \"15478\",\r\n    \"value\": \"100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/transaction/transferencia",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"transaction",
+								"transferencia"
+							]
+						},
+						"description": "Transferencia entre contas do mesmo banco"
+					},
 					"response": []
+				},
+				{
+					"name": "Deposito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "account",
+								"value": "01234",
+								"type": "text",
+								"description": "Conta que receberá o deposito"
+							},
+							{
+								"key": "cpf",
+								"value": "{{cpf}}",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\":\"100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/transaction/deposito",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"transaction",
+								"deposito"
+							]
+						},
+						"description": "Adicionar saldo na conta, a idéia é que o usuário receba código de um boleto após informar pro APP de quanto será o valor deste depósito."
+					},
+					"response": [
+						{
+							"name": "Deposito - Resposta no 200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "account",
+										"value": "01234",
+										"description": "Número da conta corrente que receberá o depósito",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"value\":\"100\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3333/transaction/deposito",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"transaction",
+										"deposito"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"boleto\": \"15456465456454564564156454545644648897489789\"\n}"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -152,12 +432,36 @@
 			"item": [
 				{
 					"name": "Add Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81c7c80-ac15-4efa-9ab4-cb17e91390db",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"code\", jsonData.code);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "cpf",
+								"value": "{{cpf}}",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"bank_branch\":\"001\",\r\n    \"code\":\"01234\",\r\n    \"cpf\":\"08215574677\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
+							"raw": "{\r\n    \"cpf\":\"{{cpf}}\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -165,17 +469,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3333/account",
-							"protocol": "http",
+							"raw": "{{serverEndpoint}}/account",
 							"host": [
-								"localhost"
+								"{{serverEndpoint}}"
 							],
-							"port": "3333",
 							"path": [
 								"account"
 							]
 						},
-						"description": "Adicionar uma conta corrent\r\n[0] -> Cancelado | [1] -> Ativo | [2] -> Bloqueado"
+						"description": "Adicionar uma conta corrent\n\n[0] -> Cancelado | [1] -> Ativo | [2] -> Bloqueado"
 					},
 					"response": []
 				},
@@ -186,22 +488,98 @@
 						"header": [
 							{
 								"key": "cpf",
-								"value": "08215574677",
+								"value": "{{cpf}}",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3333/account",
-							"protocol": "http",
+							"raw": "{{serverEndpoint}}/account",
 							"host": [
-								"localhost"
+								"{{serverEndpoint}}"
 							],
-							"port": "3333",
 							"path": [
 								"account"
 							]
 						},
 						"description": "Retorna a conta do usuário"
+					},
+					"response": [
+						{
+							"name": "Get Account",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "cpf",
+										"value": "08215574677",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3333/account",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3333",
+									"path": [
+										"account"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"_id\": \"5f36969c3b64e126c47ad7ba\",\r\n    \"bank_branch\":\"001\",\r\n    \"code\":\"01234\",\r\n    \"cpf\":\"08215574677\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\",\r\n    \"createdAt\": \"2020-08-14T13:50:20.737Z\",\r\n    \"updatedAt\": \"2020-08-14T13:50:20.737Z\",\r\n    \"__v\": 0\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancelamento de conta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "account",
+								"value": "{{code}}",
+								"type": "text",
+								"description": "Número da conta"
+							},
+							{
+								"key": "cpf",
+								"value": "{{cpf}}",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/transaction",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"transaction"
+							]
+						},
+						"description": "Usuário solicita o cancelamento da conta.\r\n\r\n[0] -> Cancelado | \r\n[1] -> Ativo | \r\n[2] -> Bloqueado"
 					},
 					"response": []
 				}
