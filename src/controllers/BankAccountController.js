@@ -2,6 +2,7 @@ const Account = require("../models/BankAccount");
 const generate = require('../utils/generate');
 const UserService = require('../services/UserService');
 const BankAccountService = require('../services/BankAccountService');
+const { update } = require("../models/BankAccount");
 
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
             return res.status(200).json(account);
         }
         catch (err){
-            return res.status(400).json({'mensagem': err.message});
+            return res.status(400).json({'erro': err.message});
         }
     },
 
@@ -26,7 +27,7 @@ module.exports = {
         const { cpf } = req.headers;
 
         if (cpf !== 'adminUser') {
-            return res.status(401).json({mensagem: 'Você não tem autorização para esta rota!'});
+            return res.status(401).json({'erro': 'Você não tem autorização para esta rota!'});
         }
 
         const accounts = await Account.find();
@@ -39,11 +40,25 @@ module.exports = {
         const { cpf, pws } = req.headers;
 
         try{
+            if (account_balance <= 0) {
+                throw new Error('O valor precisa ser positivo.');
+            }
+
             const user = await UserService.getUser(cpf, pws);
-            const existAccount = await BankAccountService.getAccount(cpf, pws);
+
+            const existAccount = await Account.findOne({user});
 
             if (existAccount) {
-                return res.status(400).json({mensagem: 'Já existe uma conta para este usuário: ' +  existAccount.code });
+
+                if (existAccount.status === 1){
+                    throw new Error('Já existe uma conta para este usuário: ' +  existAccount.code);
+                }
+
+                existAccount.account_balance += account_balance;
+                existAccount.status = 1;
+
+                await existAccount.save();
+                return res.status(200).json(existAccount);
             }
 
             const account = await Account.create({
@@ -57,7 +72,7 @@ module.exports = {
             return res.status(200).json(account);
         } 
         catch (err){
-            return res.status(400).json({'mensagem': err.message});
+            return res.status(400).json({'erro': err.message});
         }
 
     },
@@ -72,10 +87,31 @@ module.exports = {
 
             await account.save();
 
-            return res.status(200);
+            return res.status(200).send();
         }
         catch (err){
-            return res.status(400).json({'mensagem': err.message});
+            return res.status(400).json({'erro': err.message});
+        }
+    },
+
+    async update(req, res) {
+        const { cpf, pws } = req.headers;
+        const { status } = req.body;
+        try{
+            if (status < 1 || status > 3){
+                throw new Error('Status inválido, verifique e tente novamente.');
+            }
+
+            const account = await BankAccountService.getAccount(cpf, pws);
+
+            account.status = status;
+
+            await account.save();
+
+            return res.status(200).send();
+        }
+        catch (err){
+            return res.status(400).json({'erro': err.message});
         }
     }
 };

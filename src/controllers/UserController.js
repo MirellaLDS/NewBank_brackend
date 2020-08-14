@@ -12,7 +12,7 @@ module.exports = {
             return res.status(200).json(user);
         }
         catch (err){
-            return res.status(400).json({'mensagem': err.message});
+            return res.status(400).json({'erro': err.message});
         }
     },
 
@@ -20,7 +20,7 @@ module.exports = {
         const { cpf } = req.headers;
 
         if (cpf !== 'userAdmin') {
-            return res.status(401).json({mensagem: 'Você não tem autorização para esta rota!'});
+            return res.status(401).json({'erro': 'Você não tem autorização para esta rota!'});
         }
 
         const users = await User.find();
@@ -32,7 +32,7 @@ module.exports = {
         const { cpf, name, avatar, telefone, pws } = req.body;
 
         if (!cpf || !name || !telefone || !pws){
-            return res.status(400).json({mensagem: 'Os campos "cpf", "name", "telefone" e "pws" são obrigatórios, verifique e tente novamente!'});
+            return res.status(400).json({'erro': 'Os campos "cpf", "name", "telefone" e "pws" são obrigatórios, verifique e tente novamente!'});
         }
 
         const userExists = await User.findOne({ cpf:  cpf });

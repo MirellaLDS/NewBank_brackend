@@ -60,13 +60,14 @@ routes.get('/getAllUsers', UserController.list);
 // ACCOUNT ROUTES
 routes.post('/accounts', BankAccountController.store);
 routes.get('/accounts', BankAccountController.index);
+routes.delete('/accounts', BankAccountController.cancelamento);
+routes.put('/accounts', BankAccountController.update);
 routes.get('/getAllAccounts', BankAccountController.list);
 
 // Transactions
 routes.post('/pagamento', TransactionController.pay);
 routes.get('/boleto', TransactionController.gerarBoleto);
 routes.post('/deposito', TransactionController.deposito);
-//routes.post('/cancelamento', TransactionController.cancelamento);
 
 // catch 404 and forward to error handler
 routes.use(function(req, res, next) {
