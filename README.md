@@ -13,7 +13,7 @@ O servidor em questão fornecerá informações sobre uma conta bancária vincul
 > https://newbank-backend.herokuapp.com/
 
 **Documentação**
-> https://documenter.getpostman.com/view/472946/T1LPBkng?version=latest#416390a1-81c6-4552-9698-4621eabf4ff6
+> https://documenter.getpostman.com/view/472946/T1LPD7FG
 
 **Requisitos**
 > [!CAUTION]
