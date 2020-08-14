@@ -1,5 +1,7 @@
 "use strict";
+
 require("dotenv").config();
+
 const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');

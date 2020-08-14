@@ -4,6 +4,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const TransactionController = require("../controllers/TransactionsController");
 const UserController = require("../controllers/UserController");
+const BankAccountController = require('../controllers/BankAccountController');
 
 const routes = express.Router();
 
@@ -51,14 +52,21 @@ routes.get('/', (req, res) => {
     return res.json({menssagem: `Servidor ativo`});
 });
 
+// USER ROUTES
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.index);
+routes.get('/getAllUsers', UserController.list);
+
+// ACCOUNT ROUTES
+routes.post('/accounts', BankAccountController.store);
+routes.get('/accounts', BankAccountController.index);
+routes.get('/getAllAccounts', BankAccountController.list);
 
 // Transactions
 routes.post('/pagamento', TransactionController.pay);
 routes.get('/boleto', TransactionController.gerarBoleto);
 routes.post('/deposito', TransactionController.deposito);
-routes.post('/cancelamento', TransactionController.cancelamento);
+//routes.post('/cancelamento', TransactionController.cancelamento);
 
 // catch 404 and forward to error handler
 routes.use(function(req, res, next) {
