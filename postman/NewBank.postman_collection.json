@@ -38,9 +38,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localEndpoit}}/users",
+							"raw": "{{serverEndpoint}}/users",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"users"
@@ -227,9 +227,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{localEndpoit}}/getAllUsers",
+							"raw": "{{serverEndpoint}}/getAllUsers",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"getAllUsers"
@@ -316,13 +316,23 @@
 							{
 								"key": "account",
 								"value": "01234",
-								"description": "Numero da conta",
+								"type": "text",
+								"description": "Numero da conta"
+							},
+							{
+								"key": "cpf",
+								"value": "{{cpf}}",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "{{pws}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\"\r\n}",
+							"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\",\r\n    \"amount\": 25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -350,13 +360,23 @@
 									{
 										"key": "account",
 										"value": "01234",
-										"description": "Numero da conta",
+										"type": "text",
+										"description": "Numero da conta"
+									},
+									{
+										"key": "cpf",
+										"value": "{{cpf}}",
+										"type": "text"
+									},
+									{
+										"key": "pws",
+										"value": "{{pws}}",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\"\r\n}",
+									"raw": "{\r\n    \"boleto\": \"15456465456454564564156454545644648897489789\",\r\n    \"amount\": 25\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -364,12 +384,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:3333/transaction/pagamento",
-									"protocol": "http",
+									"raw": "{{localEndpoit}}/transaction/pagamento",
 									"host": [
-										"localhost"
+										"{{localEndpoit}}"
 									],
-									"port": "3333",
 									"path": [
 										"transaction",
 										"pagamento"
@@ -378,10 +396,39 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": "text",
-							"header": [],
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"152-ZCr5dbMqbt+QRtFAb0PTIkbXB7M\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 23:14:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
 							"cookie": [],
-							"body": "Pagamento efetuado com sucesso"
+							"body": "{\n    \"mensagem\": \"Pagamento do boleto: 15456465456454564564156454545644648897489789 realizado com sucessos.\",\n    \"account\": {\n        \"_id\": \"5f3713f247c21d3a60a24b3f\",\n        \"bank_branch\": \"0001\",\n        \"code\": \"64742\",\n        \"user\": \"5f3578b328fa6f52c03664b7\",\n        \"account_balance\": 925,\n        \"status\": 1,\n        \"createdAt\": \"2020-08-14T22:45:06.043Z\",\n        \"updatedAt\": \"2020-08-14T23:14:48.381Z\",\n        \"__v\": 0\n    }\n}"
 						}
 					]
 				},
@@ -412,9 +459,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localEndpoit}}/transaction/transferencia",
+							"raw": "{{serverEndpoint}}/transaction/transferencia",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"transaction",
@@ -524,7 +571,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 50\r\n}",
+							"raw": "{\r\n    \"amount\": 500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -532,9 +579,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localEndpoit}}/transaction/deposito",
+							"raw": "{{serverEndpoint}}/transaction/deposito",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"transaction",
@@ -637,9 +684,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localEndpoit}}/accounts",
+							"raw": "{{serverEndpoint}}/accounts",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"accounts"
@@ -840,9 +887,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{localEndpoit}}/getAllAccounts",
+							"raw": "{{serverEndpoint}}/getAllAccounts",
 							"host": [
-								"{{localEndpoit}}"
+								"{{serverEndpoint}}"
 							],
 							"path": [
 								"getAllAccounts"
