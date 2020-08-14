@@ -4,17 +4,30 @@ const Transaction = require("../models/BankTransaction");
 const Boleto = require('@mrmgomes/boleto-utils');
 const BankAccount = require('../services/BankAccountService');
 const TransactionService = require('../services/BankTransactionSevice');
+const BankAccountService = require('../services/BankAccountService');
 
 const TransactionType = {
     TRANSFERENCIA: 0,
     DEPOSITO: 1,
-    PAGAMENTO: 2,
+    PAGAMENTO: { value: 2, name: "Pagamento" },
     CANCELAMENTO: 3
 }
 
 module.exports = {
     async pay(req, res) {
-        return res.send(`Pagamento` + TransactionType.TRANSFERENCIA);
+        const { boleto, amount } = req.body;
+        const { cpf, pws, account } = req.headers;
+
+        const bankAccount = await BankAccount.getAccount(cpf, pws);
+
+        bankAccount.account_balance -= amount;
+
+        await bankAccount.save();
+
+        return res.json({
+                'mensagem': `${TransactionType.PAGAMENTO.name} do boleto: ${boleto} realizado com sucessos.`,
+                'account': bankAccount
+            });
     },
     
     async gerarBoleto(req, res) {
