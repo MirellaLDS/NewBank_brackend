@@ -14,7 +14,8 @@ const swaggerOptions = {
         info: {
           version: "1.0.0",
           title: "NewBank",
-          description: "O servidor em questão fornecerá informações sobre uma conta bancária vinculada ao usuário proprietário do dispositivo.",
+          description: "O servidor em questão fornecerá informações sobre uma conta bancária vinculada ao usuário proprietário do dispositivo."+ 
+          "\n\n **Verifique a documentação de API pelo postman.**",
           contact: {
             name: "Mirella Lins"
           }
@@ -28,7 +29,7 @@ const swaggerOptions = {
             }
           ]
     },
-    apis: ["./src/models/*.js", "./src/routes.js"]
+    apis: ["./src/models/*.js", "./src/routers/routes.js"]
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -43,13 +44,22 @@ routes.get('/api-docs', swaggerUi.setup(swaggerDocs, options));
  * @swagger
  * /:
  *  get:
- *    description: The server is running
+ *    description: The server is running. Verifique a documentação de API pelo postman.
  *    responses:
  *      '200':
- *        description: A successful response
+ *        description: O servidor ativo
+ *      '500': 
+ *        description: Tem algo de errado com o servidor
  */
 routes.get('/', (req, res) => {
-    return res.json({menssagem: `Servidor ativo`});
+
+  const result = {
+    mensagem: "Servidor ativo",
+    swagger: "http://localhost:3333/api-docs/",
+    postman: "https://documenter.getpostman.com/view/472946/T1LPD7FG"
+  }
+
+  return res.json(result);
 });
 
 // USER ROUTES
@@ -67,7 +77,8 @@ routes.get('/getAllAccounts', BankAccountController.list);
 // Transactions
 routes.post('/pagamento', TransactionController.pay);
 routes.get('/boleto', TransactionController.gerarBoleto);
-routes.post('/deposito', TransactionController.deposito);
+routes.post('/transaction/deposito', TransactionController.deposito);
+routes.post('/transaction/transferencia', TransactionController.transferencia);
 
 // catch 404 and forward to error handler
 routes.use(function(req, res, next) {

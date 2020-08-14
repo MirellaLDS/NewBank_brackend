@@ -208,6 +208,99 @@
 							"body": "{\n    \"_id\": \"5f3578b328fa6f52c03664b7\",\n    \"name\": \"Teste 1\",\n    \"cpf\": \"08215596975\",\n    \"pws\": \"123456\",\n    \"telefone\": \"989253766\",\n    \"avatar\": \"\",\n    \"createdAt\": \"2020-08-13T17:30:27.636Z\",\n    \"updatedAt\": \"2020-08-13T17:30:27.636Z\",\n    \"__v\": 0\n}"
 						}
 					]
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cpf",
+								"value": "userAdmin",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "1234",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{localEndpoit}}/getAllUsers",
+							"host": [
+								"{{localEndpoit}}"
+							],
+							"path": [
+								"getAllUsers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "cpf",
+										"value": "userAdmin",
+										"type": "text"
+									},
+									{
+										"key": "pws",
+										"value": "1234",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{localEndpoit}}/getAllUsers",
+									"host": [
+										"{{localEndpoit}}"
+									],
+									"path": [
+										"getAllUsers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "637"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27d-1JOBbiOKOl3T2Ya9N9WxZ1rLf1g\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 22:27:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5f3578b328fa6f52c03664b7\",\n        \"name\": \"Teste 1\",\n        \"cpf\": \"08215596975\",\n        \"pws\": \"123456\",\n        \"telefone\": \"989253766\",\n        \"avatar\": \"\",\n        \"createdAt\": \"2020-08-13T17:30:27.636Z\",\n        \"updatedAt\": \"2020-08-13T17:30:27.636Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5f36969c3b64e126c47ad7ba\",\n        \"name\": \"Teste 5\",\n        \"cpf\": \"08215123456\",\n        \"pws\": \"123456\",\n        \"telefone\": \"989253766\",\n        \"avatar\": \"\",\n        \"createdAt\": \"2020-08-14T13:50:20.737Z\",\n        \"updatedAt\": \"2020-08-14T13:50:20.737Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5f36b8c76a71a87ac4f7002c\",\n        \"name\": \"Gabriel Vasconcelos\",\n        \"cpf\": \"08396845417\",\n        \"pws\": \"123456\",\n        \"telefone\": \"997033961\",\n        \"avatar\": \"\",\n        \"createdAt\": \"2020-08-14T16:16:07.722Z\",\n        \"updatedAt\": \"2020-08-14T16:16:07.722Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -311,7 +404,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"origem\": \"01234\",\r\n    \"destino\": \"15478\",\r\n    \"value\": \"100\"\r\n}",
+							"raw": "{\r\n    \"origem\": \"64742\",\r\n    \"destino\": \"85814\",\r\n    \"amount\": 25\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,9 +412,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{serverEndpoint}}/transaction/transferencia",
+							"raw": "{{localEndpoit}}/transaction/transferencia",
 							"host": [
-								"{{serverEndpoint}}"
+								"{{localEndpoit}}"
 							],
 							"path": [
 								"transaction",
@@ -330,7 +423,81 @@
 						},
 						"description": "Transferencia entre contas do mesmo banco"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Transferencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "cpf",
+										"value": "{{cpf}}",
+										"type": "text",
+										"description": "Id do usuário"
+									},
+									{
+										"key": "pws",
+										"value": "{{pws}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"origem\": \"64742\",\r\n    \"destino\": \"85814\",\r\n    \"amount\": 25\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localEndpoit}}/transaction/transferencia",
+									"host": [
+										"{{localEndpoit}}"
+									],
+									"path": [
+										"transaction",
+										"transferencia"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "266"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10a-lt04V0B3rKL8wl+58gyKzG0wbQc\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 22:48:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"mensagem\": \"Transferência realizada com sucesso!\",\n    \"comprovante\": {\n        \"bank_account\": [\n            \"5f3713f247c21d3a60a24b3f\"\n        ],\n        \"_id\": \"5f3714a8eb655b31f0f79ec3\",\n        \"source_transaction\": 0,\n        \"amount\": 25,\n        \"createdAt\": \"2020-08-14T22:48:08.651Z\",\n        \"updatedAt\": \"2020-08-14T22:48:08.651Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Deposito",
@@ -341,7 +508,8 @@
 								"key": "account",
 								"value": "01234",
 								"type": "text",
-								"description": "Conta que receberá o deposito"
+								"description": "Conta que receberá o deposito",
+								"disabled": true
 							},
 							{
 								"key": "cpf",
@@ -356,7 +524,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"value\":\"100\"\r\n}",
+							"raw": "{\r\n    \"amount\": 50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,9 +532,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{serverEndpoint}}/transaction/deposito",
+							"raw": "{{localEndpoit}}/transaction/deposito",
 							"host": [
-								"{{serverEndpoint}}"
+								"{{localEndpoit}}"
 							],
 							"path": [
 								"transaction",
@@ -461,7 +629,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\":\"{{cpf}}\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
+							"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -469,17 +637,89 @@
 							}
 						},
 						"url": {
-							"raw": "{{serverEndpoint}}/account",
+							"raw": "{{localEndpoit}}/accounts",
 							"host": [
-								"{{serverEndpoint}}"
+								"{{localEndpoit}}"
 							],
 							"path": [
-								"account"
+								"accounts"
 							]
 						},
 						"description": "Adicionar uma conta corrent\n\n[0] -> Cancelado | [1] -> Ativo | [2] -> Bloqueado"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Add Account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "cpf",
+										"value": "{{cpf}}",
+										"type": "text"
+									},
+									{
+										"key": "pws",
+										"value": "{{pws}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cpf\":\"08215596975\",\r\n    \"account_balance\":\"100.00\",\r\n    \"status\":\"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localEndpoit}}/accounts",
+									"host": [
+										"{{localEndpoit}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "404"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"194-l3475hslkkHQM7QHdE8t0FBduec\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Aug 2020 22:45:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5f3713f247c21d3a60a24b3f\",\n    \"bank_branch\": \"0001\",\n    \"code\": \"64742\",\n    \"user\": {\n        \"_id\": \"5f3578b328fa6f52c03664b7\",\n        \"name\": \"Teste 1\",\n        \"cpf\": \"08215596975\",\n        \"pws\": \"123456\",\n        \"telefone\": \"989253766\",\n        \"avatar\": \"\",\n        \"createdAt\": \"2020-08-13T17:30:27.636Z\",\n        \"updatedAt\": \"2020-08-13T17:30:27.636Z\",\n        \"__v\": 0\n    },\n    \"account_balance\": 100,\n    \"status\": 1,\n    \"createdAt\": \"2020-08-14T22:45:06.043Z\",\n    \"updatedAt\": \"2020-08-14T22:45:06.043Z\",\n    \"__v\": 0\n}"
+						}
+					]
 				},
 				{
 					"name": "Get Account",
@@ -580,6 +820,34 @@
 							]
 						},
 						"description": "Usuário solicita o cancelamento da conta.\r\n\r\n[0] -> Cancelado | \r\n[1] -> Ativo | \r\n[2] -> Bloqueado"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cpf",
+								"value": "adminUser",
+								"type": "text"
+							},
+							{
+								"key": "pws",
+								"value": "123456",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localEndpoit}}/getAllAccounts",
+							"host": [
+								"{{localEndpoit}}"
+							],
+							"path": [
+								"getAllAccounts"
+							]
+						}
 					},
 					"response": []
 				}

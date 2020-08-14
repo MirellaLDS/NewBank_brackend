@@ -20,7 +20,7 @@ const { Schema, model } = require("mongoose");
  *            description: cpf of user
  *          pws:
  *            type: string
- *            description: pws of user
+ *            description: passwors of user
  *          avatar:
  *            type: string
  *            description: Avatar do perfil

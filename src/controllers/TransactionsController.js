@@ -1,11 +1,20 @@
 const User = require("../models/User");
 const Account = require("../models/BankAccount");
+const Transaction = require("../models/BankTransaction");
 const Boleto = require('@mrmgomes/boleto-utils');
 const BankAccount = require('../services/BankAccountService');
+const TransactionService = require('../services/BankTransactionSevice');
+
+const TransactionType = {
+    TRANSFERENCIA: 0,
+    DEPOSITO: 1,
+    PAGAMENTO: 2,
+    CANCELAMENTO: 3
+}
 
 module.exports = {
     async pay(req, res) {
-        return res.send("Pagamento");
+        return res.send(`Pagamento` + TransactionType.TRANSFERENCIA);
     },
     
     async gerarBoleto(req, res) {
@@ -34,15 +43,18 @@ module.exports = {
 
             await account.save();
 
-            return res.status(200).json({'mensagem': 'Depósito realizado com sucesso!'});
-            }
-        catch (err){
+            return res.status(200).json({
+                'mensagem': 'O saldo estará na conta meiante o pagamento do boleto',
+                'codigo_de_barras': await TransactionService.getBoleto(cpf, pws, amount)
+            });
+        }
+        catch (err) {
             return res.status(400).json({'erro': err.message});
         }
     },
     
     async transferencia(req, res) {
-        const { to, amount } = req.body;
+        const {origem, destino, amount } = req.body;
         const { cpf, pws } = req.headers;
 
         try{
@@ -60,7 +72,7 @@ module.exports = {
                 throw new Error('Saldo insuficiente para a transferência.');
             }
 
-            const recipientAccount = await Account.findOne({code: to});
+            const recipientAccount = await Account.findOne({code: destino});
             if (!recipientAccount) {
                 throw new Error('Conta do destinatário não encontrada.');
             }
@@ -70,8 +82,12 @@ module.exports = {
 
             await userAccount.save();
             await recipientAccount.save();
+            const result = await TransactionService.saveTransaction(cpf, pws, TransactionType.TRANSFERENCIA, amount, recipientAccount._id);
 
-            return res.status(200).json({'mensagem': 'Transferência realizada com sucesso!'});
+            return res.status(200).json({
+                'mensagem': 'Transferência realizada com sucesso!',
+                'comprovante': result
+            });
 
             }
         catch (err){
