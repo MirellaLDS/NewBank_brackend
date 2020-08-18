@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const UserService = require('../services/UserService');
 const { getAll } = require("./BankAccountController");
+const { update } = require("../models/User");
 
 module.exports = {
 
@@ -28,6 +29,29 @@ module.exports = {
         return res.json(users);
     },
 
+    async update(req, res) {
+        const { _id, cpf, name, avatar, telefone, pws } = req.body;
+
+        console.log("Entrou na rota!");
+
+        if (!cpf || !name || !telefone || !pws){
+            return res.status(400).json({'erro': 'Os campos "cpf", "name", "telefone" e "pws" são obrigatórios, verifique e tente novamente!'});
+        }
+
+        const user = await User.updateOne( 
+            {"_id": _id},
+            {$set: {            
+                name,
+                cpf,
+                pws,
+                telefone,
+                avatar
+            }},
+            {upsert: true}
+        );
+        
+        return res.json(user);
+    },
     async store(req, res) {
         const { cpf, name, avatar, telefone, pws } = req.body;
 

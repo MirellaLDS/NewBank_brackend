@@ -11,9 +11,9 @@ O servidor em questão fornecerá informações sobre uma conta bancária vincul
 
 **Public API:** 
 > https://newbank-backend.herokuapp.com/
-> <br/>
-> **GET Logs**
 > <br/><br/>
+> **GET Logs**
+> <br/>
 > Install Heroku client to see server logs
 > <br/>
 > `heroku logs --app newbank-backend --tail`

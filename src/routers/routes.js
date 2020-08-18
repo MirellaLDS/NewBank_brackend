@@ -66,6 +66,7 @@ routes.get('/', (req, res) => {
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.index);
 routes.get('/getAllUsers', UserController.list);
+routes.put('/user/update', UserController.update);
 
 // ACCOUNT ROUTES
 routes.post('/accounts', BankAccountController.store);
