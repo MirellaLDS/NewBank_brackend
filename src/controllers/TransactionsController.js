@@ -70,17 +70,24 @@ module.exports = {
     async index(req, res) {
         const { cpf, pws } = req.headers;
 
+        try{
+            if (amount <= 0) {
+                throw new Error('O valor da transferência precisa ser positivo.');
+            }
 
-        console.log("Entrou na rota!");
+            const userAccount = await BankAccount.getAccount(cpf, pws);
 
-        const user = await UserService.getUser(cpf, pws);
-        console.log(user);
-        const account = await Account.findOne({user});
-        console.log(account);
-        const transaction = await Transaction.find({bank_account: account});
-        console.log(transaction);
-
-        return res.status(200).json(transaction);
+            if (!userAccount) {
+                throw new Error('Não existe conta para o usuário');
+            }
+            const user = await UserService.getUser(cpf, pws);
+            const account = await Account.findOne({user});
+            const transaction = await Transaction.find({bank_account: account});
+            return res.status(200).json(transaction);
+        }
+        catch (err){
+            return res.status(400).json({'erro': err.message});
+        }
     },
     
     async transferencia(req, res) {
