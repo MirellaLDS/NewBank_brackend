@@ -81,6 +81,7 @@ routes.get('/boleto', TransactionController.gerarBoleto);
 routes.post('/transaction/deposito', TransactionController.deposito);
 routes.post('/transaction/transferencia', TransactionController.transferencia);
 routes.post('/transaction/pagamento', TransactionController.pay);
+routes.get('/transaction/getByUser', TransactionController.index);
 
 // catch 404 and forward to error handler
 routes.use(function(req, res, next) {

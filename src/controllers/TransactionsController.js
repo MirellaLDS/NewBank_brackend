@@ -5,6 +5,7 @@ const Boleto = require('@mrmgomes/boleto-utils');
 const BankAccount = require('../services/BankAccountService');
 const TransactionService = require('../services/BankTransactionSevice');
 const BankAccountService = require('../services/BankAccountService');
+const UserService = require('../services/UserService');
 
 const TransactionType = {
     TRANSFERENCIA: 0,
@@ -65,6 +66,22 @@ module.exports = {
             return res.status(400).json({'erro': err.message});
         }
     },
+
+    async index(req, res) {
+        const { cpf, pws } = req.headers;
+
+
+        console.log("Entrou na rota!");
+
+        const user = await UserService.getUser(cpf, pws);
+        console.log(user);
+        const account = await Account.findOne({user});
+        console.log(account);
+        const transaction = await Transaction.find({bank_account: account});
+        console.log(transaction);
+
+        return res.status(200).json(transaction);
+    },
     
     async transferencia(req, res) {
         const {origem, destino, amount } = req.body;
@@ -96,6 +113,8 @@ module.exports = {
             await userAccount.save();
             await recipientAccount.save();
             const result = await TransactionService.saveTransaction(cpf, pws, TransactionType.TRANSFERENCIA, amount, recipientAccount._id);
+
+            console.log(result);
 
             return res.status(200).json({
                 'mensagem': 'Transferência realizada com sucesso!',
