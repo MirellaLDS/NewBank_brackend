@@ -1,7 +1,5 @@
 const User = require("../models/User");
 const UserService = require('../services/UserService');
-const { getAll } = require("./BankAccountController");
-const { update } = require("../models/User");
 
 module.exports = {
 
@@ -19,10 +17,11 @@ module.exports = {
 
     async list(req, res) {
         const { cpf } = req.headers;
+        console.log(cpf);
 
         if (cpf !== 'userAdmin') {
             return res.status(401).json({'erro': 'Você não tem autorização para esta rota!'});
-        }
+        }        
 
         const users = await User.find();
 
@@ -38,7 +37,7 @@ module.exports = {
             return res.status(400).json({'erro': 'Os campos "cpf", "name", "telefone" e "pws" são obrigatórios, verifique e tente novamente!'});
         }
 
-        const user = await User.updateOne( 
+        await User.updateOne( 
             {"_id": _id},
             {$set: {            
                 name,
@@ -50,7 +49,7 @@ module.exports = {
             {upsert: true}
         );
         
-        return res.json(user);
+        return res.json(await UserService.getUser(cpf, pws));
     },
     async store(req, res) {
         const { cpf, name, avatar, telefone, pws } = req.body;
