@@ -30,7 +30,7 @@ client.on('message', message => {
         message.reply('pong');
     }
     var user = message.member.toString();
-    if (user.includes("GitHub")) {
+    if (user.includes("!")) {
         var user2 = user.split("!")[1].split(">")[0];
         var test = client.users.get(user2).username;
         console.log(test);
