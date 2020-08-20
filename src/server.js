@@ -23,9 +23,20 @@ mongoose.connect(process.env.MONGODB, {
 
 client.on('ready', () => {
     console.log('I am ready!');
+    const chanel = client.channels.cache.get("geral");
+    chanel.send("i'm here!", {
+        files: [
+            "./images/ry5enok9.bmp"
+        ]
+    });
+
+    client.user.setPresence({
+        status: 'online'
+    })
 });
 
 client.on('message', message => {
+
     if (message.content === 'ping') {
         message.reply('pong');
     }
