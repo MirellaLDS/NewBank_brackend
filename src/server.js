@@ -23,13 +23,17 @@ mongoose.connect(process.env.MONGODB, {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    
-    const channel = client.channels.get('745396266044883006');
-    channel.send("i'm here!", {
+
+    client.channels.find(channel => channel.name === 'test').send("i'm here!", {
         files: [
             "./images/ry5enok9.bmp"
         ]
-    });
+    }); // for discord v11
+    // client.channels.cache.find(channel => channel.name === 'test').send("i'm here!", {
+    //     files: [
+    //         "./images/ry5enok9.bmp"
+    //     ]
+    // }); // for discord v12
 
     client.user.setPresence({
         status: 'online'
@@ -41,7 +45,7 @@ client.on('message', message => {
     if (message.content === 'ping') {
         message.reply('pong');
     }
-    let lastMessage = messages.first();
+    var lastMessage = message.first();
 
     if (lastMessage.author.bot) {
         message.reply('A new version has been generated!');
