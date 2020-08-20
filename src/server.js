@@ -8,9 +8,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const { Client, Attachment } = require('discord.js');
+const {Client, Attachment} = require('discord.js');
 
-const client = new Client();
+const client = new Discord.Client();
 
 const routes = require('./routers/routes');
 
@@ -24,10 +24,12 @@ mongoose.connect(process.env.MONGODB, {
 client.on('ready', () => {
     console.log('I am ready!');
 
-    var test = new Attachment("./src/images/ry5enok9.bmp");
+    client.channels.find(channel => channel.name === 'test').send("i'm here!", {
+        files: [
+            "./src/images/ry5enok9.bmp"
+        ],
 
-    client.channels.find(channel => channel.name === 'test').send(
-        "i'm here!", { test });
+    });
     client.user.setPresence({
         status: 'online'
     });
@@ -37,8 +39,6 @@ client.on('message', message => {
 
     if (message.content === 'ping') {
         message.reply('pong');
-    } else if(message.content === 'local') {
-        message.reply('Resposta local');
     }
 
 });
