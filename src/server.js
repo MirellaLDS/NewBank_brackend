@@ -8,7 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const {Client} = require('discord.js');
+const { Client } = require('discord.js');
 
 const client = new Client();
 
@@ -47,26 +47,30 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    if (message.content === 'ping') {
+    var mensagem = message.content;
+
+    if (mensagem === 'ping') {
         message.reply('pong');
-    } else if (message.content.includes('servidor') 
-    || message.content.includes('server') 
-    || message.content.includes('api')){
+    }
+    else if (mensagem.includes('servidor')
+        || mensagem.includes('api')) {
         message.reply('Toma ai zé mané: https://documenter.getpostman.com/view/472946/T1LPD7FG');
-    } else if ( message.content.includes('mirella')) {
+    }
+    else if (mensagem.includes('mirella')
+    || mensagem.includes('professora')) {
         message.reply('A reunião começa as 18:00', {
             files: [
                 "./src/images/aviso.jpg"
             ]
         });
-    } else if ( message.content.includes('bot')) {
+    }
+    else if (mensagem.includes('bot')) {
         message.reply("i'm here!", {
             files: [
                 "./src/images/opa.jpg"
             ]
         });
     }
-
 });
 
 // THIS  MUST  BE  THIS  WAY
