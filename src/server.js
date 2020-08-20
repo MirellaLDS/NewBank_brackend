@@ -24,9 +24,8 @@ mongoose.connect(process.env.MONGODB, {
 client.on('ready', () => {
     console.log('I am ready!');
 
-    const att = new Attachment("./src/images/ry5enok9.bmp");
     client.channels.find(channel => channel.name === 'test').send(
-        "i'm here!", att);
+        "i'm here!", new Attachment("./src/images/ry5enok9.bmp"));
     client.user.setPresence({
         status: 'online'
     });
