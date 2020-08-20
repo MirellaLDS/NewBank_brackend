@@ -29,11 +29,10 @@ client.on('message', message => {
     if (message.content === 'ping') {
         message.reply('pong');
     }
-    var user = message.member.toString();
-    if (user.includes("!")) {
-        var user2 = user.split("!")[1].split(">")[0];
-        var test = client.users.get(user2).username;
-        console.log(test);
+    let lastMessage = messages.first();
+
+    if (lastMessage.author.bot) {
+        message.reply('A new version has been generated!');
     }
 
 });
