@@ -8,6 +8,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const Discord = require('discord.js');
+
+const client = new Discord.Client();
+
 const routes = require('./routers/routes');
 
 const server = express();
@@ -16,6 +20,20 @@ mongoose.connect('mongodb+srv://mlds:321456@cluster0-acv5q.mongodb.net/omnistack
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+client.on('ready', () => {
+    console.log('I am ready!');
+});
+
+client.on('message', message => {
+    if (message.content === 'ping') {
+        message.reply('pong');
+    }
+});
+
+// THIS  MUST  BE  THIS  WAY
+
+client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
 
 server.use(cors());
 server.use(express.json());

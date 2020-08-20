@@ -1,0 +1,7 @@
+Client ID: 745813287589117963
+Client Secret: Q-mZbaNBiQkLg5rigiqefg2pOw0GZvhe
+
+Token:
+NzQ1ODEzMjg3NTg5MTE3OTYz.Xz3OwA.d6jFIremhhyIkWu-S1Rhq_Zjy0s
+
+https://discordapp.com/oauth2/authorize?&745813287589117963&scope=bot&permissions=0
