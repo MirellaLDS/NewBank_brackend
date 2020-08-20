@@ -27,6 +27,8 @@ module.exports = {
 
             await bankAccount.save();
 
+            const result = await TransactionService.saveTransaction(cpf, pws, TransactionType.PAGAMENTO.value, amount);
+
             return res.json({
                 'mensagem': `${TransactionType.PAGAMENTO.name} do boleto: ${boleto} realizado com sucessos.`,
                 'account': bankAccount
@@ -68,6 +70,8 @@ module.exports = {
             account.account_balance += amount;
 
             await account.save();
+
+            const result = await TransactionService.saveTransaction(cpf, pws, TransactionType.DEPOSITO, amount);
 
             return res.status(200).json({
                 'mensagem': 'O saldo estará na conta meiante o pagamento do boleto',

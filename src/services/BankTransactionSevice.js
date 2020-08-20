@@ -22,9 +22,11 @@ const self = this;
     exports.saveTransaction = async (cpf, pws, type, amount, destino = "000") => {        
         const account = await AccountService.getAccount(cpf, pws);
 
+        var dest = destino == "000" ? "5f36bbf43b109377b0a9611d" : destino;
+
         const transaction = await Transaction.create({
             source_transaction: type,
-            bank_account: [account._id, destino],            
+            bank_account: [account._id, dest],            
             amount
         });
 

@@ -96,7 +96,7 @@ module.exports = {
         const { cpf, pws } = req.headers;
         const { status } = req.body;
         try {
-            if (status < 1 || status > 3) {
+            if (!(status >= 0 || status <= 3)) {
                 throw new Error('Status inválido, verifique e tente novamente.');
             }
 
