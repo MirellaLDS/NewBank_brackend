@@ -43,6 +43,8 @@ client.on('ready', () => {
     client.user.setPresence({
         status: 'online'
     });
+
+    // setInterval('');
 });
 
 client.on('message', message => {
@@ -53,11 +55,12 @@ client.on('message', message => {
         message.reply('pong');
     }
     else if (mensagem.includes('servidor')
+        || mensagem.includes('servidor')
         || mensagem.includes('api')) {
         message.reply('Toma ai zé mané: https://documenter.getpostman.com/view/472946/T1LPD7FG');
     }
     else if (mensagem.includes('mirella')
-    || mensagem.includes('professora')) {
+        || mensagem.includes('professora')) {
         message.reply('A reunião começa as 18:00', {
             files: [
                 "./src/images/aviso.jpg"
@@ -78,7 +81,7 @@ client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
 
 server.use(cors());
 server.use(express.json());
-server.use(favicon(path.join(__dirname, 'images', 'images.png')))
+// server.use(favicon(path.join(__dirname, 'images', 'images.png')));
 server.use(routes);
 
 server.listen(process.env.PORT || 3333);

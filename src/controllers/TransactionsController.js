@@ -83,10 +83,6 @@ module.exports = {
         const { cpf, pws } = req.headers;
 
         try {
-            if (amount <= 0) {
-                throw new Error('O valor da transferência precisa ser positivo.');
-            }
-
             const userAccount = await BankAccount.getAccount(cpf, pws);
 
             if (!userAccount) {
@@ -95,6 +91,7 @@ module.exports = {
             const user = await UserService.getUser(cpf, pws);
             const account = await Account.findOne({ user });
             const transaction = await Transaction.find({ bank_account: account });
+            console.log(transaction);
             return res.status(200).json(transaction);
         }
         catch (err) {
