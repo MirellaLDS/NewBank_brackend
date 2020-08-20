@@ -24,12 +24,22 @@ mongoose.connect(process.env.MONGODB, {
 client.on('ready', () => {
     console.log('I am ready!');
 
+    // const attachment = new Attachment('https://42oahg400ufw3vfyws2k38y6-wpengine.netdna-ssl.com/wp-content/uploads/2019/09/meme.jpg', 'name'); // name is optional
+
     client.channels.find(channel => channel.name === 'test').send("i'm here!", {
         files: [
-            "./src/images/ry5enok9.bmp"
-        ],
-
+            "./src/images/opa.jpg"
+        ]
     });
+
+    client.channels.find(channel => channel.name === 'geral').send("The server is running!", {
+        files: [
+            "./src/images/tenor.gif"
+        ]
+    });
+
+    // client.channels.find(channel => channel.name === 'test').send('Hey there', attachment).catch(console.error);;
+
     client.user.setPresence({
         status: 'online'
     });
@@ -39,6 +49,16 @@ client.on('message', message => {
 
     if (message.content === 'ping') {
         message.reply('pong');
+    } else if (message.content.includes('servidor') 
+    || message.content.includes('server') 
+    || message.content.includes('api')){
+        message.reply('Toma ai zé mané: https://documenter.getpostman.com/view/472946/T1LPD7FG');
+    } else if ( message.content.includes('mirella')) {
+        message.reply('A reunião começa as 18:00', {
+            files: [
+                "./src/images/aviso.jpg"
+            ]
+        });
     }
 
 });
