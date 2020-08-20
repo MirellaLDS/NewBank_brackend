@@ -32,11 +32,11 @@ client.on('ready', () => {
         ]
     });
 
-    client.channels.find(channel => channel.name === 'geral').send("The server is running!", {
-        files: [
-            "./src/images/tenor.gif"
-        ]
-    });
+    // client.channels.find(channel => channel.name === 'geral').send("The server is running!", {
+    //     files: [
+    //         "./src/images/tenor.gif"
+    //     ]
+    // });
 
     // client.channels.find(channel => channel.name === 'test').send('Hey there', attachment).catch(console.error);;
 
@@ -54,8 +54,8 @@ client.on('message', message => {
     if (mensagem === 'ping') {
         message.reply('pong');
     }
-    else if (mensagem.includes('servidor')
-        || mensagem.includes('servidor')
+    else if (mensagem.includes('documentação')
+        || mensagem.includes('server')
         || mensagem.includes('api')) {
         message.reply('Toma ai zé mané: https://documenter.getpostman.com/view/472946/T1LPD7FG');
     }
