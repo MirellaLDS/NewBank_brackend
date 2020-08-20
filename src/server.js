@@ -23,15 +23,16 @@ mongoose.connect(process.env.MONGODB, {
 
 client.on('ready', () => {
     console.log('I am ready!');
-    const chanel = client.channels.cache.get();
-    chanel.send("i'm here!", {
+    
+    const channel = client.channels.get('745396266044883006');
+    channel.send("i'm here!", {
         files: [
             "./images/ry5enok9.bmp"
         ]
     });
 
     client.user.setPresence({
-        status: 'idle'
+        status: 'online'
     })
 });
 
