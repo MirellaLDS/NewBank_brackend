@@ -8,9 +8,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const {Client, Attachment} = require('discord.js');
+const {Client} = require('discord.js');
 
-const client = new Discord.Client();
+const client = new Client();
 
 const routes = require('./routers/routes');
 
