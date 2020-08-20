@@ -81,7 +81,7 @@ module.exports = {
         try {
             const account = await BankAccountService.getAccount(cpf, pws);
 
-            account.status = 0;
+            account.status = 3;
 
             await account.save();
 

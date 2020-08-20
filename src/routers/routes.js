@@ -74,6 +74,7 @@ routes.get('/accounts', BankAccountController.index);
 routes.delete('/accounts', BankAccountController.cancelamento);
 routes.put('/accounts', BankAccountController.update);
 routes.get('/getAllAccounts', BankAccountController.list);
+routes.put('/accounts/cancel', BankAccountController.cancelamento);
 
 // Transactions
 routes.post('/pagamento', TransactionController.pay);
