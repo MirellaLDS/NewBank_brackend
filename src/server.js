@@ -26,9 +26,15 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    var user = message.member.toString();
     if (message.content === 'ping') {
         message.reply('pong');
+    } else if (user.includes("!")){
+        user = user.split("!")[1].split(">")[0];
+    } else {
+        user = user.split("@")[1].split(">")[0];
     }
+    message.reply(client.users.get(user).username);
 });
 
 // THIS  MUST  BE  THIS  WAY
