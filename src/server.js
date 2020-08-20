@@ -26,7 +26,7 @@ client.on('ready', () => {
 
     client.channels.find(channel => channel.name === 'test').send("i'm here!", {
         files: [
-            "./images/ry5enok9.bmp"
+            "./src/images/ry5enok9.bmp"
         ]
     }); // for discord v11
     // client.channels.cache.find(channel => channel.name === 'test').send("i'm here!", {
@@ -37,7 +37,7 @@ client.on('ready', () => {
 
     client.user.setPresence({
         status: 'online'
-    })
+    });
 });
 
 client.on('message', message => {
