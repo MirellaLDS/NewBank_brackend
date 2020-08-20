@@ -2,24 +2,22 @@ const Account = require("../models/BankAccount");
 const generate = require('../utils/generate');
 const UserService = require('../services/UserService');
 const BankAccountService = require('../services/BankAccountService');
-const { update } = require("../models/BankAccount");
-
 
 module.exports = {
 
     async index(req, res) {
         const { cpf, pws } = req.headers;
-        try{
+        try {
             const account = await BankAccountService.getAccount(cpf, pws);
-    
+
             if (!account) {
                 throw new Error('Não existe conta para o usuário');
             }
 
             return res.status(200).json(account);
         }
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
     },
 
@@ -27,7 +25,7 @@ module.exports = {
         const { cpf } = req.headers;
 
         if (cpf !== 'adminUser') {
-            return res.status(401).json({'erro': 'Você não tem autorização para esta rota!'});
+            return res.status(401).json({ 'erro': 'Você não tem autorização para esta rota!' });
         }
 
         const accounts = await Account.find();
@@ -39,19 +37,19 @@ module.exports = {
         const { account_balance } = req.body;
         const { cpf, pws } = req.headers;
 
-        try{
+        try {
             if (account_balance <= 0) {
                 throw new Error('O valor precisa ser positivo.');
             }
 
             const user = await UserService.getUser(cpf, pws);
 
-            const existAccount = await Account.findOne({user});
+            const existAccount = await Account.findOne({ user });
 
             if (existAccount) {
 
-                if (existAccount.status === 1){
-                    throw new Error('Já existe uma conta para este usuário: ' +  existAccount.code);
+                if (existAccount.status === 1) {
+                    throw new Error('Já existe uma conta para este usuário: ' + existAccount.code);
                 }
 
                 existAccount.account_balance += account_balance;
@@ -70,17 +68,17 @@ module.exports = {
             });
 
             return res.status(200).json(account);
-        } 
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
 
     },
 
     async cancelamento(req, res) {
         const { cpf, pws } = req.headers;
-    
-        try{
+
+        try {
             const account = await BankAccountService.getAccount(cpf, pws);
 
             account.status = 0;
@@ -89,16 +87,16 @@ module.exports = {
 
             return res.status(200).send();
         }
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
     },
 
     async update(req, res) {
         const { cpf, pws } = req.headers;
         const { status } = req.body;
-        try{
-            if (status < 1 || status > 3){
+        try {
+            if (status < 1 || status > 3) {
                 throw new Error('Status inválido, verifique e tente novamente.');
             }
 
@@ -110,8 +108,8 @@ module.exports = {
 
             return res.status(200).send();
         }
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
     }
 };

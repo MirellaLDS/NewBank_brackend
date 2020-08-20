@@ -19,30 +19,42 @@ module.exports = {
         const { boleto, amount } = req.body;
         const { cpf, pws, account } = req.headers;
 
-        const bankAccount = await BankAccount.getAccount(cpf, pws);
+        try {
 
-        bankAccount.account_balance -= amount;
+            const bankAccount = await BankAccount.getAccount(cpf, pws);
 
-        await bankAccount.save();
+            bankAccount.account_balance -= amount;
 
-        return res.json({
+            await bankAccount.save();
+
+            return res.json({
                 'mensagem': `${TransactionType.PAGAMENTO.name} do boleto: ${boleto} realizado com sucessos.`,
                 'account': bankAccount
             });
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
+        }
     },
-    
+
     async gerarBoleto(req, res) {
-        //https://www.npmjs.com/package/@mrmgomes/boleto-utils
-       var result = Boleto.geraCodBarras('23790448095616862379336011058009740430000124020');
-        console.log("Resposta");
-        return res.json(result);
+
+        try {
+            //https://www.npmjs.com/package/@mrmgomes/boleto-utils
+            var result = Boleto.geraCodBarras('23790448095616862379336011058009740430000124020');
+            console.log("Resposta");
+            return res.json(result);
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
+        }
     },
-    
+
     async deposito(req, res) {
         const { cpf, pws } = req.headers;
         const { amount } = req.body;
 
-        try{
+        try {
             if (amount <= 0) {
                 throw new Error('O valor do depósito precisa ser positivo.');
             }
@@ -63,14 +75,14 @@ module.exports = {
             });
         }
         catch (err) {
-            return res.status(400).json({'erro': err.message});
+            return res.status(400).json({ 'erro': err.message });
         }
     },
 
     async index(req, res) {
         const { cpf, pws } = req.headers;
 
-        try{
+        try {
             if (amount <= 0) {
                 throw new Error('O valor da transferência precisa ser positivo.');
             }
@@ -81,20 +93,20 @@ module.exports = {
                 throw new Error('Não existe conta para o usuário');
             }
             const user = await UserService.getUser(cpf, pws);
-            const account = await Account.findOne({user});
-            const transaction = await Transaction.find({bank_account: account});
+            const account = await Account.findOne({ user });
+            const transaction = await Transaction.find({ bank_account: account });
             return res.status(200).json(transaction);
         }
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
     },
-    
+
     async transferencia(req, res) {
-        const {origem, destino, amount } = req.body;
+        const { origem, destino, amount } = req.body;
         const { cpf, pws } = req.headers;
 
-        try{
+        try {
             if (amount <= 0) {
                 throw new Error('O valor da transferência precisa ser positivo.');
             }
@@ -105,11 +117,11 @@ module.exports = {
                 throw new Error('Não existe conta para o usuário');
             }
 
-            if (userAccount.account_balance < amount){
+            if (userAccount.account_balance < amount) {
                 throw new Error('Saldo insuficiente para a transferência.');
             }
 
-            const recipientAccount = await Account.findOne({code: destino});
+            const recipientAccount = await Account.findOne({ code: destino });
             if (!recipientAccount) {
                 throw new Error('Conta do destinatário não encontrada.');
             }
@@ -128,9 +140,9 @@ module.exports = {
                 'comprovante': result
             });
 
-            }
-        catch (err){
-            return res.status(400).json({'erro': err.message});
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
         }
     }
 };
