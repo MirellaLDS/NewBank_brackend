@@ -24,17 +24,14 @@ mongoose.connect(process.env.MONGODB, {
 client.on('ready', () => {
     console.log('I am ready!');
 
+    client.channels.find(channel => channel.name === 'test').m
+
     client.channels.find(channel => channel.name === 'test').send("i'm here!", {
         files: [
             "./src/images/ry5enok9.bmp"
-        ]
-    }); // for discord v11
-    // client.channels.cache.find(channel => channel.name === 'test').send("i'm here!", {
-    //     files: [
-    //         "./images/ry5enok9.bmp"
-    //     ]
-    // }); // for discord v12
-
+        ],
+        
+    });
     client.user.setPresence({
         status: 'online'
     });
@@ -44,11 +41,6 @@ client.on('message', message => {
 
     if (message.content === 'ping') {
         message.reply('pong');
-    }
-    var lastMessage = message.first();
-
-    if (lastMessage.author.bot) {
-        message.reply('A new version has been generated!');
     }
 
 });
