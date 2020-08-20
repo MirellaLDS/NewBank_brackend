@@ -59,6 +59,12 @@ client.on('message', message => {
                 "./src/images/aviso.jpg"
             ]
         });
+    } else if ( message.content.includes('bot')) {
+        message.reply("i'm here!", {
+            files: [
+                "./src/images/opa.jpg"
+            ]
+        });
     }
 
 });
