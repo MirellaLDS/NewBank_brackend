@@ -16,7 +16,7 @@ const routes = require('./routers/routes');
 
 const server = express();
 
-mongoose.connect('mongodb+srv://mlds:321456@cluster0-acv5q.mongodb.net/omnistack8?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGODB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -26,19 +26,19 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    var user = message.member.toString();
     if (message.content === 'ping') {
         message.reply('pong');
-    } else if (user.includes("!")){
-        user = user.split("!")[1].split(">")[0];
-    } else {
-        user = user.split("@")[1].split(">")[0];
     }
-    message.reply(client.users.get(user).username);
+    var user = message.member.toString();
+    if (user.includes("GitHub")) {
+        var user2 = user.split("!")[1].split(">")[0];
+        var test = client.users.get(user2).username;
+        console.log(test);
+    }
+
 });
 
 // THIS  MUST  BE  THIS  WAY
-
 client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
 
 server.use(cors());
