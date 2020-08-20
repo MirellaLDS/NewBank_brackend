@@ -92,9 +92,11 @@ routes.use(function(req, res, next) {
 
 // Error Handler
 routes.use(function(err, req, res, next) {
+  console.log(`code: ${err.status} e mensagem: ${err.message}`);
   res.status(err.status || 500);
   res.json({
     error: {
+      code: err.status,
       message: err.message
     }
   });

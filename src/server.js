@@ -8,7 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const Discord = require('discord.js');
+const { Client, Attachment } = require('discord.js');
 
 const client = new Discord.Client();
 
@@ -24,14 +24,9 @@ mongoose.connect(process.env.MONGODB, {
 client.on('ready', () => {
     console.log('I am ready!');
 
-    client.channels.find(channel => channel.name === 'test').m
-
-    client.channels.find(channel => channel.name === 'test').send("i'm here!", {
-        files: [
-            "./src/images/ry5enok9.bmp"
-        ],
-        
-    });
+    const att = new Attachment("./src/images/ry5enok9.bmp");
+    client.channels.find(channel => channel.name === 'test').send(
+        "i'm here!", att);
     client.user.setPresence({
         status: 'online'
     });
