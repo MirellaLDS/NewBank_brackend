@@ -5,7 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const TransactionController = require("../controllers/TransactionsController");
 const UserController = require("../controllers/UserController");
 const BankAccountController = require('../controllers/BankAccountController');
-const ShellController = require("../controllers/ShellController");
+// const ShellController = require("../controllers/ShellController");
 
 const routes = express.Router();
 
@@ -65,11 +65,11 @@ routes.get('/', (req, res) => {
 });
 
 // Shell routes
-routes.get('/shell', (req, res) => {
-  res.send(`<h1> A resposta demora um pouco, então não estresse! O log aparece se você acrescentar  <u style='color:red'>/shell/logs</u> a url.</h1>`);
-});
+// routes.get('/shell', (req, res) => {
+//   res.send(`<h1> A resposta demora um pouco, então não estresse! O log aparece se você acrescentar  <u style='color:red'>/shell/logs</u> a url.</h1>`);
+// });
 
-routes.use('/shell/logs', ShellController.index);
+// routes.use('/shell/logs', ShellController.index);
 
 
 // USER ROUTES
