@@ -57,7 +57,8 @@ routes.get('/', (req, res) => {
   const result = {
     mensagem: "Servidor ativo",
     swagger: "http://localhost:3333/api-docs/",
-    postman: "https://documenter.getpostman.com/view/472946/T1LPD7FG"
+    postman: "https://documenter.getpostman.com/view/472946/T1LPD7FG",
+    Autora: "Mirella Lins"
   }
 
   return res.json(result);
