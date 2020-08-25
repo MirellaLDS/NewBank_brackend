@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const UserService = require('../services/UserService');
+const BankAccountService = require('../services/BankAccountService');
 
 module.exports = {
 
@@ -9,6 +10,26 @@ module.exports = {
             const user = await UserService.getUser(cpf, pws);
 
             return res.status(200).json(user);
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
+        }
+    },
+
+    async getById(req, res) {
+        const { cpf, pws, id } = req.headers;
+
+        try {
+            const user = await UserService.getUserById(id);
+            const account = await BankAccountService.getAccount(cpf, pws);
+
+            if (!user || user.pws != pws) {
+                throw new Error('Credenciais inválidas');
+            }
+
+            const result = { userInfo:{ "user": user, "account": account } };
+
+            return res.status(200).json(result);
         }
         catch (err) {
             return res.status(400).json({ 'erro': err.message });

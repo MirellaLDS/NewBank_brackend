@@ -20,7 +20,8 @@
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
     "discord.js": "11.1.0",
-    "request": "2.81.0"
+    "request": "2.81.0",
+    "node-powershell": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

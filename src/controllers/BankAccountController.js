@@ -21,6 +21,27 @@ module.exports = {
         }
     },
 
+    async getById(req, res) {
+        const { cpf, pws, id } = req.headers;
+        try {
+            const account = await BankAccountService.getAccountById(id);
+            const user = await UserService.getUser(cpf, pws);
+
+            if (!account) {
+                throw new Error('Conta não existe');
+            }if (!cpf && !pws) {
+                throw new Error('Informe as credenciais corretas!');
+            }
+
+            var result = {accountInfo: { account: account, user: user }}
+
+            return res.status(200).json(result);
+        }
+        catch (err) {
+            return res.status(400).json({ 'erro': err.message });
+        }
+    },
+
     async list(req, res) {
         const { cpf } = req.headers;
 

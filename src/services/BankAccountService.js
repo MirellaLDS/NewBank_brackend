@@ -8,3 +8,9 @@ exports.getAccount = async (cpf, pws) => {
 
   return account;  
 }
+
+exports.getAccountById = async (id) => {
+  const account = await Account.findOne({_id: id});
+
+  return account;  
+}

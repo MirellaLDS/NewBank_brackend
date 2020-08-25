@@ -13,3 +13,9 @@ const User = require('../models/User');
 
     return user;
   }
+
+  exports.getUserById = async (id) => {  
+    const user = await User.findOne({ _id: id });
+
+    return user;
+  }

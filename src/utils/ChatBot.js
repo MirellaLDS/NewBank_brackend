@@ -65,3 +65,9 @@ exports.getCurrentDateAndTime = () => {
 
     return date + ' - ' + time;
 }
+
+exports.loginHeroku = () => {
+
+    // heroku login -i
+
+}

@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const TransactionController = require("../controllers/TransactionsController");
 const UserController = require("../controllers/UserController");
 const BankAccountController = require('../controllers/BankAccountController');
+const ShellController = require("../controllers/ShellController");
 
 const routes = express.Router();
 
@@ -62,22 +63,32 @@ routes.get('/', (req, res) => {
   return res.json(result);
 });
 
+// Shell routes
+routes.get('/shell', (req, res) => {
+  res.send(`<h1> A resposta demora um pouco, então não estresse! O log aparece se você acrescentar  <u style='color:red'>/shell/logs</u> a url.</h1>`);
+});
+
+routes.use('/shell/logs', ShellController.index);
+
+
 // USER ROUTES
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.index);
+routes.get('/users/info', UserController.getById);
 routes.get('/getAllUsers', UserController.list);
 routes.put('/user/update', UserController.update);
 
 // ACCOUNT ROUTES
 routes.post('/accounts', BankAccountController.store);
 routes.get('/accounts', BankAccountController.index);
+routes.get('/accounts/info', BankAccountController.getById);
 routes.delete('/accounts', BankAccountController.cancelamento);
 routes.put('/accounts', BankAccountController.update);
 routes.get('/getAllAccounts', BankAccountController.list);
 routes.put('/accounts/cancel', BankAccountController.cancelamento);
 
 // Transactions
-routes.post('/pagamento', TransactionController.pay);
+// routes.post('/pagamento', TransactionController.pay);
 routes.get('/boleto', TransactionController.gerarBoleto);
 routes.post('/transaction/deposito', TransactionController.deposito);
 routes.post('/transaction/transferencia', TransactionController.transferencia);
