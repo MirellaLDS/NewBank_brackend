@@ -71,11 +71,11 @@ module.exports = {
 
             await account.save();
 
-            const result = await TransactionService.saveTransaction(cpf, pws, TransactionType.DEPOSITO, amount);
+            await TransactionService.saveTransaction(cpf, pws, TransactionType.DEPOSITO, amount);
 
             return res.status(200).json({
                 'mensagem': 'O saldo estará na conta meiante o pagamento do boleto',
-                'codigo_de_barras': await TransactionService.getBoleto(cpf, pws, amount)
+                'codigo_de_barras': await TransactionService.getBoleto(cpf, pws, amount),
             });
         }
         catch (err) {

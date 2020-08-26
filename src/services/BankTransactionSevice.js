@@ -6,15 +6,8 @@ const Boleto = require('@mrmgomes/boleto-utils');
 const self = this;
 
     exports.getBoleto = async (cpf, pws, amount) => {
-        // const user = await UserService.getUser(cpf, pws);
-
-        // const account = await AccountService.getAccount(cpf, pws);
-
-        // Guardar boleto gerado
 
         const barCode = await gerarBoleto();
-
-        await self.saveTransaction(cpf, pws, 1, amount);
 
         return barCode;  
     }
